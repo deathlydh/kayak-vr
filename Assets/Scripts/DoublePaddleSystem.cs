@@ -1,5 +1,4 @@
 using UnityEngine;
-using Crest;
 
 [RequireComponent(typeof(Rigidbody))]
 public class DoublePaddleSystem : MonoBehaviour
@@ -7,164 +6,148 @@ public class DoublePaddleSystem : MonoBehaviour
     [System.Serializable]
     public class Blade
     {
-        public Transform bladeRoot;
-        public Transform bladeTip;
+        public Transform bladeRoot;     // корень лопасти (для определения угла)
+        public Transform bladeTip;      // точка погружения
+        public bool isLeft;
     }
 
     [Header("Controllers")]
     public Transform leftController;
     public Transform rightController;
 
-    [Header("Paddle")]
-    public Transform doublePaddle;
+    [Header("Paddle Object")]
+    public Transform doublePaddle; // корневой объект весла (с левой и правой лопастью)
 
     [Header("Blades")]
     public Blade leftBlade;
     public Blade rightBlade;
 
-    [Header("Physics")]
+    [Header("Paddle Physics")]
+    public float waterLevel = 0f;
     public float bladeDepthThreshold = -0.05f;
     public float maxEffectiveSpeed = 2.5f;
     public float forceMultiplier = 60f;
     public float recoveryDrag = 0.5f;
-    public float minEfficiency = 0.1f;
-    public float maxEfficiency = 1.0f;
 
-    [Header("Crest Sampling")]
-    public float minSpatialLength = 1f;
+    [Header("Angle Efficiency")]
+    public float minEfficiency = 0.1f; // минимальная эффективность (даже "пером")
+    public float maxEfficiency = 1.0f; // когда лопасть плоская
 
     private Rigidbody rb;
     private Vector3 lastLeftTip, lastRightTip;
     private bool leftInWater, rightInWater;
 
-    private SampleHeightHelper _leftHeightHelper, _rightHeightHelper;
-    private SampleFlowHelper _leftFlowHelper, _rightFlowHelper;
-    private bool _initialized = false;
-
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        if (leftBlade?.bladeTip != null) lastLeftTip = leftBlade.bladeTip.position;
-        if (rightBlade?.bladeTip != null) lastRightTip = rightBlade.bladeTip.position;
+        if (leftBlade.bladeTip != null) lastLeftTip = leftBlade.bladeTip.position;
+        if (rightBlade.bladeTip != null) lastRightTip = rightBlade.bladeTip.position;
     }
 
     void LateUpdate()
     {
-        if (leftController == null || rightController == null || doublePaddle == null) return;
-
-        doublePaddle.position = (leftController.position + rightController.position) * 0.5f;
-        Vector3 forward = rightController.position - leftController.position;
-        if (forward.magnitude < 0.01f) forward = transform.forward;
-        doublePaddle.rotation = Quaternion.LookRotation(forward, Vector3.up);
+        if (leftController == null || rightController == null || doublePaddle == null)
+            return;
+    
+        // --- Положение: середина между контроллерами ---
+        Vector3 avgPosition = (leftController.position + rightController.position) * 0.5f;
+        doublePaddle.position = avgPosition;
+    
+        // --- Поворот: ось X весла направлена от левой руки к правой ---
+        Vector3 forwardDir = rightController.position - leftController.position;
+        if (forwardDir.magnitude < 0.01f)
+        {
+            // Если руки рядом — используем стандартное направление
+            forwardDir = transform.forward; // или Vector3.right
+        }
+    
+        // Ось Y — вверх (можно использовать мировой Up, или нормаль к воде)
+        Vector3 upDir = Vector3.up;
+    
+        // Строим матрицу поворота: forward = X, up = Y
+        Quaternion newRotation = Quaternion.LookRotation(forwardDir, upDir);
+    
+        // Применяем поворот
+        doublePaddle.rotation = newRotation;
     }
 
     void FixedUpdate()
     {
-        if (OceanRenderer.Instance == null) return;
+        if (leftBlade.bladeTip != null)
+            ProcessBlade(leftBlade, ref lastLeftTip, ref leftInWater);
 
-        if (!_initialized)
-        {
-            _leftHeightHelper = new SampleHeightHelper();
-            _rightHeightHelper = new SampleHeightHelper();
-            _leftFlowHelper = new SampleFlowHelper();
-            _rightFlowHelper = new SampleFlowHelper();
-            _initialized = true;
-        }
-
-        if (leftBlade?.bladeTip != null)
-            ProcessBlade(leftBlade, ref lastLeftTip, ref leftInWater, _leftHeightHelper, _leftFlowHelper);
-
-        if (rightBlade?.bladeTip != null)
-            ProcessBlade(rightBlade, ref lastRightTip, ref rightInWater, _rightHeightHelper, _rightFlowHelper);
+        if (rightBlade.bladeTip != null)
+            ProcessBlade(rightBlade, ref lastRightTip, ref rightInWater);
     }
 
-    void ProcessBlade(Blade blade, ref Vector3 lastPos, ref bool inWater, SampleHeightHelper heightHelper, SampleFlowHelper flowHelper)
+    void ProcessBlade(Blade blade, ref Vector3 lastPos, ref bool inWater)
     {
         Transform tip = blade.bladeTip;
-        Vector3 current = tip.position;
-        Vector3 velocity = (current - lastPos) / Time.fixedDeltaTime;
-        lastPos = current;
+        Vector3 currentPos = tip.position;
+        Vector3 velocity = (currentPos - lastPos) / Time.fixedDeltaTime;
+        lastPos = currentPos;
 
-        heightHelper.Init(current, minSpatialLength);
-        if (!heightHelper.Sample(out float waterHeight, out _, out Vector3 waterVelocity)) return;
-
-        // Add flow to water velocity
-        flowHelper.Init(current, minSpatialLength);
-        if (flowHelper.Sample(out Vector2 flow2D))
-        {
-            waterVelocity += new Vector3(flow2D.x, 0f, flow2D.y);
-        }
-
-        bool currentlyInWater = current.y < waterHeight + bladeDepthThreshold;
+        bool currentlyInWater = currentPos.y < waterLevel + bladeDepthThreshold;
         inWater = currentlyInWater;
 
         if (currentlyInWater)
         {
-            Vector3 relVel = velocity - waterVelocity;
-            Vector3 localVel = transform.InverseTransformDirection(relVel);
-            float angleEff = CalculateBladeEfficiency(blade.bladeRoot.up);
+            // Направление движения в локальных координатах КАЯКА
+            Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+            bool isPullingBack = localVelocity.z < -0.1f; // движение назад
 
-            if (localVel.z < -0.1f) // Pulling back (effective stroke)
+            // === Учёт угла лопасти ===
+            // Нормаль к лопасти: считаем, что "вверх" лопасти = направление, перпендикулярное плоскости
+            Vector3 bladeNormal = blade.bladeRoot.up; // или .forward — зависит от модели
+            float angleEfficiency = CalculateBladeEfficiency(bladeNormal);
+
+            if (isPullingBack)
             {
-                float speed = Mathf.Clamp(-localVel.z, 0f, maxEffectiveSpeed);
-                Vector3 force = transform.forward * speed * forceMultiplier * angleEff;
-                rb.AddForceAtPosition(force, current, ForceMode.Force);
+                float speed = Mathf.Clamp(-localVelocity.z, 0f, maxEffectiveSpeed);
+                Vector3 force = transform.forward * speed * forceMultiplier * angleEfficiency;
+                rb.AddForceAtPosition(force, currentPos, ForceMode.Force);
             }
-            else if (localVel.z > 0.1f) // Pushing forward (drag when submerged)
+            else if (localVelocity.z > 0.1f)
             {
-                float drag = localVel.z * forceMultiplier * 0.3f * angleEff;
-                rb.AddForceAtPosition(-transform.forward * drag, current, ForceMode.Force);
+                // Сопротивление при движении вперёд под водой
+                float drag = localVelocity.z * forceMultiplier * 0.3f * angleEfficiency;
+                Vector3 dragForce = -transform.forward * drag;
+                rb.AddForceAtPosition(dragForce, currentPos, ForceMode.Force);
             }
         }
         else
         {
-            // Air drag
+            // Воздушное сопротивление (слабое)
             if (velocity.magnitude > 0.2f)
             {
                 Vector3 airDrag = -velocity * recoveryDrag;
                 airDrag.y = 0f;
-                rb.AddForceAtPosition(airDrag, current, ForceMode.Force);
+                rb.AddForceAtPosition(airDrag, currentPos, ForceMode.Force);
             }
         }
     }
 
-    float CalculateBladeEfficiency(Vector3 normal)
+    float CalculateBladeEfficiency(Vector3 bladeNormal)
     {
-        float dot = Mathf.Abs(Vector3.Dot(normal, Vector3.up));
-        return Mathf.Lerp(minEfficiency, maxEfficiency, dot * dot);
+        // Эффективность = насколько лопасть "смотрит вверх"
+        // Если bladeNormal ≈ (0,1,0) → плоскость горизонтальна → max эффективность
+        // Если bladeNormal ≈ (0,0,1) → ребро → min эффективность
+        float dot = Mathf.Abs(Vector3.Dot(bladeNormal, Vector3.up));
+        return Mathf.Lerp(minEfficiency, maxEfficiency, dot * dot); // квадрат для более резкого перехода
     }
 
+    // Gizmos
     void OnDrawGizmos()
     {
-        if (OceanRenderer.Instance == null) return;
-        DrawBlade(leftBlade, _leftHeightHelper);
-        DrawBlade(rightBlade, _rightHeightHelper);
+        DrawBladeGizmo(leftBlade);
+        DrawBladeGizmo(rightBlade);
     }
 
-    void DrawBlade(Blade blade, SampleHeightHelper helper)
+    void DrawBladeGizmo(Blade blade)
     {
-        if (blade?.bladeTip == null) return;
-
-        Vector3 pos = blade.bladeTip.position;
-        float waterHeight = OceanRenderer.Instance.SeaLevel;
-        bool inWater = false;
-
-        if (Application.isPlaying && helper != null)
-        {
-            helper.Init(pos, minSpatialLength);
-            if (helper.Sample(out waterHeight, out _, out _))
-            {
-                inWater = pos.y < waterHeight + bladeDepthThreshold;
-                Gizmos.color = new Color(0f, 0.5f, 1f, 0.5f);
-                Gizmos.DrawLine(pos, new Vector3(pos.x, waterHeight, pos.z));
-            }
-        }
-        else
-        {
-            inWater = pos.y < waterHeight + bladeDepthThreshold;
-        }
-
+        if (blade.bladeTip == null) return;
+        bool inWater = blade.bladeTip.position.y < waterLevel + bladeDepthThreshold;
         Gizmos.color = inWater ? Color.cyan : Color.yellow;
-        Gizmos.DrawSphere(pos, 0.04f);
+        Gizmos.DrawSphere(blade.bladeTip.position, 0.04f);
     }
 }
