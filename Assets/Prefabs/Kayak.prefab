@@ -1,0 +1,269 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1850600952209560481
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.292
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.59
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_Name
+      value: Kayak
+      objectReference: {fileID: 0}
+    - target: {fileID: 8358731035653116045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 8358731035653116045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 8358731035653116045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 8358731035653116045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8358731035653116045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8358731035653116045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8358731035653116045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.4784419
+      objectReference: {fileID: 0}
+    - target: {fileID: 8358731035653116045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.4784419
+      objectReference: {fileID: 0}
+    - target: {fileID: 8358731035653116045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.5206663
+      objectReference: {fileID: 0}
+    - target: {fileID: 8358731035653116045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5206663
+      objectReference: {fileID: 0}
+    - target: {fileID: 8358731035653116045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8358731035653116045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -94.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 8358731035653116045, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: -3839424404007729115, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4953628668529716554}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3779525992458999987}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3840169310683886522}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8135443800744371175}
+  m_SourcePrefab: {fileID: 100100000, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+--- !u!1 &1544679779242766064 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 89d37f91e45a65449873fc282903182d, type: 3}
+  m_PrefabInstance: {fileID: 1850600952209560481}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &4953628668529716554
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544679779242766064}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.43166178, y: 0.27795935, z: 3.4933398}
+  m_Center: {x: 0.014217049, y: -0.0552938, z: -0.022411942}
+--- !u!54 &3779525992458999987
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544679779242766064}
+  serializedVersion: 5
+  m_Mass: 100
+  m_LinearDamping: 1
+  m_AngularDamping: 1
+  m_CenterOfMass: {x: 0, y: -0.04, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 0
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 2
+--- !u!114 &3840169310683886522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544679779242766064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29885b1e9fd86d14ab84a4ec918af5ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuoyancySystem
+  waterLevel: 0
+  waterDensity: 1000
+  baseVerticalDamping: 15
+  baseHorizontalDamping: 3
+  bowSternVerticalDamping: 25
+  bowSternHorizontalDamping: 5
+  bowSternThreshold: 0.3
+  points:
+  - localPosition: {x: 0, y: -0.01, z: 1.78}
+    area: 0.5
+  - localPosition: {x: 0, y: -0.01, z: -1.77}
+    area: 0.5
+  - localPosition: {x: 0.1, y: -0.05, z: -1.3}
+    area: 0.1
+  - localPosition: {x: -0.1, y: -0.05, z: -1.3}
+    area: 0.1
+  - localPosition: {x: -0.1, y: -0.05, z: 1.3}
+    area: 0.1
+  - localPosition: {x: 0.1, y: -0.05, z: 1.3}
+    area: 0.1
+  - localPosition: {x: 0, y: -0.05, z: 0}
+    area: 0.5
+  useVRCenterOfMass: 1
+  vrCamera: {fileID: 0}
+  horizontalInfluence: 0.2
+  pitchInfluence: 0.07
+  verticalInfluence: 0.01
+  baseCenterOfMass: {x: 0, y: -0.4, z: 0}
+  smoothTime: 0.25
+  pitchAngularDamping: 0.92
+  drawGizmos: 1
+  aboveWaterColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  belowWaterColor: {r: 0, g: 1, b: 1, a: 1}
+  gizmoRadius: 0.05
+--- !u!114 &8135443800744371175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544679779242766064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d415ffb916a07c047b8dc6b81a601d0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoublePaddleSystem
+  leftController: {fileID: 0}
+  rightController: {fileID: 0}
+  doublePaddle: {fileID: 0}
+  leftBlade:
+    bladeRoot: {fileID: 0}
+    bladeTip: {fileID: 0}
+    isLeft: 1
+  rightBlade:
+    bladeRoot: {fileID: 0}
+    bladeTip: {fileID: 0}
+    isLeft: 0
+  waterLevel: 0
+  bladeDepthThreshold: -0.05
+  maxEffectiveSpeed: 2.5
+  forceMultiplier: 270
+  recoveryDrag: 0.5
+  minEfficiency: 0.1
+  maxEfficiency: 1
